@@ -88,7 +88,7 @@ class CollegeList extends React.Component {
                                             <>
                                             <li key={student._id} className="listItem" onClick={() => this.toggleStudent(student._id)}>{student.name}</li>
                                             {this.state.showStudId === student._id && 
-                                                <Table style={{width:"400px",margin:"10px"}}>
+                                                <Table style={{width:"300px",margin:"10px"}}>
                                                 <Thead className="thead">
                                                     <Tr style={{border:"1px solid"}}>
                                                     <Th style={{width:"400px",borderBottom:"1px solid",color:"#779090"}}>Student Name</Th>
