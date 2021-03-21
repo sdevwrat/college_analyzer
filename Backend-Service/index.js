@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const collegeRouter = require('./Routes/collegeRouter');
 const studentRouter = require('./Routes/studentRouter');
+const dbURI = process.env.DB_URI || require('./config').dbURI;
 
 
 const app = express();
@@ -23,7 +24,7 @@ app.use((req,res,next) =>{
     return next();
 });
 
-mongoose.connect("mongodb+srv://devu:qwerty123@cluster0.xidne.mongodb.net/oneshot?retryWrites=true&w=majority",{useNewUrlParser:true,useUnifiedTopology: true})
+mongoose.connect(dbURI,{useNewUrlParser:true,useUnifiedTopology: true})
     .then(() =>console.log('MongoDB connected'))
     .catch(err => console.log('failed to connect DB',err));
 
