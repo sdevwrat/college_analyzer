@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
 
   getColleges = async (params) =>{
     console.log(params.state,params.courses)
-    let resp = await axios.get("http://localhost:8000/colleges",{params});
+    let resp = await axios.get("https://aqueous-beach-38254.herokuapp.com/colleges",{params});
     let title = '';
     if(params.state)
         title = `List of Colleges in ${params.state}`
@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
 
   componentDidMount = async() =>{
     try{
-        let resp = await axios.get("http://localhost:8000/colleges");
+        let resp = await axios.get("https://aqueous-beach-38254.herokuapp.com/colleges");
         const arr = resp.data;
 
         //group state wise

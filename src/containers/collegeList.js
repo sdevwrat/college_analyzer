@@ -27,7 +27,7 @@ class CollegeList extends React.Component {
             const params = {
                 college_id:id
             }
-            const resp = await axios.get('http://localhost:8000/students',{params})
+            const resp = await axios.get('https://aqueous-beach-38254.herokuapp.com/students',{params})
             this.setState({
                 showId:this.state.showId === id ?null:id,
                 students:resp.data
