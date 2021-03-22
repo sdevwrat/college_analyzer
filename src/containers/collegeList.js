@@ -12,7 +12,8 @@ class CollegeList extends React.Component {
         this.state = {
             showId:null,
             showStudId:null,
-            students:[]
+            students:[],
+            sim_clg:[]
         }
     }
 
@@ -22,15 +23,19 @@ class CollegeList extends React.Component {
         })
     }
 
-    toggle = async(id) =>{
+    toggle = async(name,id) =>{
         try{
             const params = {
-                college_id:id
+                college_id:name
             }
             const resp = await axios.get('https://aqueous-beach-38254.herokuapp.com/students',{params})
+
+            const sim_clg_resp = await axios.get(`https://aqueous-beach-38254.herokuapp.com/colleges/${id}`)
+            console.log(sim_clg_resp.data)
             this.setState({
-                showId:this.state.showId === id ?null:id,
-                students:resp.data
+                showId:this.state.showId === name ?null:name,
+                students:resp.data,
+                sim_clg:sim_clg_resp.data
             })
         }catch(err){
             console.log(err);
@@ -48,7 +53,7 @@ class CollegeList extends React.Component {
                 {this.props.colleges.map((college) => {
                     return (
                         <>
-                        <li key={college._id} className="listItem" onClick={() => this.toggle(college.name)}>{college.name}</li>
+                        <li key={college._id} className="listItem" onClick={() => this.toggle(college.name,college._id)}>{college.name}</li>
                         {this.state.showId === college.name && 
                         <div className="table" style={{border:"1px solid"}}>
                         <Table>
@@ -110,6 +115,20 @@ class CollegeList extends React.Component {
                                                 </Tbody>
                                             </Table>
                                             }
+                                        </>
+                                        );
+                                    })}
+                                </ol>
+                            </div>
+                            <div>
+                            <div className="itemTitle studentListTitle" style={{textAlign:"left",margin:"8px 0 8px 4%"}}>
+                            Few Colleges offering similar courses nearby
+                            </div>
+                                <ol style={{width:"100px"}}>
+                                    {this.state.sim_clg.map(clg => {
+                                        return(
+                                            <>
+                                            <li key={clg._id} className="listItem" >{clg.name}</li>
                                         </>
                                         );
                                     })}
